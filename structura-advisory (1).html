@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structura Advisory — Conseil en structuration patrimoniale</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --obsidian: #1a1f2e;
+            --charcoal: #232839;
+            --graphite: #2a3042;
+            --accent: #4a7c6f;
+            --accent-light: #5d9a89;
+            --accent-muted: rgba(74, 124, 111, 0.12);
+            --ivory: #f5f4f0;
+            --ivory-dark: #e8e6e1;
+            --text-primary: #f5f4f0;
+            --text-secondary: #b0b5c3;
+            --text-muted: #7a8194;
+            --border-subtle: rgba(74, 124, 111, 0.25);
+            --gradient-accent: linear-gradient(135deg, #4a7c6f 0%, #6b9d8f 50%, #4a7c6f 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--obsidian);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        /* Subtle background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(ellipse at 15% 15%, rgba(74, 124, 111, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 85%, rgba(74, 124, 111, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.75rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, var(--obsidian) 0%, transparent 100%);
+        }
+
+        .logo {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .logo span {
+            color: var(--accent-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .nav-cta {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent-light);
+            padding: 0.75rem 1.75rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent);
+            color: var(--ivory);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 5% 6rem;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--accent-muted);
+            border: 1px solid var(--border-subtle);
+            padding: 0.6rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent-light);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5.5vw, 4rem);
+            max-width: 900px;
+            margin-bottom: 1.75rem;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent-light);
+            font-style: italic;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin-bottom: 3.5rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.25rem;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: var(--ivory);
+            padding: 1.1rem 2.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(74, 124, 111, 0.25);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 1.1rem 2.5rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: 1px solid var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-primary);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-muted);
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            padding: 4rem 5%;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .trust-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6rem;
+        }
+
+        .trust-item {
+            text-align: center;
+        }
+
+        .trust-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.25rem;
+            color: var(--accent-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .trust-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 7rem 5%;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 1.25rem;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: var(--charcoal);
+        }
+
+        .problem-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .problem h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .problem-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .problem-text em {
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        .problem-highlight {
+            background: var(--accent-muted);
+            border-left: 2px solid var(--accent);
+            padding: 1.75rem 2rem;
+            margin: 2.5rem 0;
+        }
+
+        .problem-highlight p {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        /* Approach Section */
+        .approach {
+            background: var(--obsidian);
+        }
+
+        .approach-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .approach-content h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            margin-bottom: 2rem;
+        }
+
+        .approach-content p {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .approach-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .approach-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .comparison-card {
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .comparison-card.classic {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .comparison-card.structura {
+            background: var(--accent-muted);
+            border-color: var(--border-subtle);
+        }
+
+        .comparison-card h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        .comparison-card.structura h4 {
+            color: var(--accent-light);
+        }
+
+        .comparison-card ul {
+            list-style: none;
+        }
+
+        .comparison-card li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.6rem 0;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .comparison-card li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-card li::before {
+            content: '→';
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .comparison-card.structura li::before {
+            color: var(--accent-light);
+        }
+
+        .comparison-card.structura li {
+            color: var(--text-primary);
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--charcoal);
+        }
+
+        .services-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 4rem;
+        }
+
+        .services-header h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            margin-bottom: 1rem;
+        }
+
+        .services-header p {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--obsidian);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 2.25rem 1.75rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--border-subtle);
+            transform: translateY(-4px);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent-light);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card > p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.4rem 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .service-list li::before {
+            content: '·';
+            color: var(--accent-light);
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* Process Section */
+        .process {
+            background: var(--obsidian);
+        }
+
+        .process-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 4rem;
+        }
+
+        .process-header h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            margin-bottom: 1rem;
+        }
+
+        .process-header p {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 12%;
+            right: 12%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.3;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            border: 1px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.25rem;
+            color: var(--accent-light);
+            margin: 0 auto 1.5rem;
+            position: relative;
+            background: var(--obsidian);
+        }
+
+        .process-step h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .process-step p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Ethics Section */
+        .ethics {
+            background: var(--charcoal);
+        }
+
+        .ethics-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .ethics-content h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            margin-bottom: 2rem;
+        }
+
+        .ethics-content p {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .ethics-principles {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .ethics-card {
+            background: var(--obsidian);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-left: 2px solid var(--accent);
+            padding: 1.5rem 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .ethics-card:hover {
+            border-left-color: var(--accent-light);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .ethics-card h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .ethics-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Team Section */
+        .team {
+            background: var(--obsidian);
+        }
+
+        .team-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 4rem;
+        }
+
+        .team-header h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            margin-bottom: 1rem;
+        }
+
+        .team-header p {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: var(--charcoal);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-muted);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.5rem;
+            color: var(--accent-light);
+        }
+
+        .team-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-role {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 1.25rem;
+        }
+
+        .team-card > p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-credentials {
+            list-style: none;
+            background: var(--obsidian);
+            padding: 1rem 1.25rem;
+            text-align: left;
+        }
+
+        .team-credentials li {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            padding: 0.35rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .team-credentials li::before {
+            content: '—';
+            color: var(--accent);
+        }
+
+        /* Target Section */
+        .target {
+            background: var(--charcoal);
+        }
+
+        .target-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 4rem;
+        }
+
+        .target-header h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            margin-bottom: 1rem;
+        }
+
+        .target-header p {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+        }
+
+        .target-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .target-card {
+            background: var(--obsidian);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .target-card:hover {
+            border-color: var(--border-subtle);
+        }
+
+        .target-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+        }
+
+        .target-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: var(--accent-light);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .target-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.35rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .target-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Digital Assets Section */
+        .digital-assets {
+            background: var(--obsidian);
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .digital-assets-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .digital-assets-text h2 {
+            font-size: clamp(1.5rem, 3vw, 1.85rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .digital-assets-text p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .digital-assets-card {
+            background: linear-gradient(135deg, #0a0f1c 0%, #111827 100%);
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            padding: 2.5rem;
+        }
+
+        .chainbridge-logo {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.35rem;
+            color: #f5f4f0;
+            margin-bottom: 0.75rem;
+        }
+
+        .chainbridge-logo span {
+            color: #d4a853;
+        }
+
+        .digital-assets-card > p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .digital-assets-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .digital-assets-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.88rem;
+            color: #e8e6e1;
+        }
+
+        .digital-assets-list li::before {
+            content: '→';
+            color: #d4a853;
+        }
+
+        .chainbridge-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #d4a853;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .chainbridge-link:hover {
+            gap: 0.9rem;
+        }
+
+        .chainbridge-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .chainbridge-link:hover svg {
+            transform: translate(2px, -2px);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--accent-muted);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .cta-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .cta-info h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-info > p {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .cta-benefits {
+            list-style: none;
+        }
+
+        .cta-benefits li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.95rem;
+        }
+
+        .cta-benefits li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: var(--ivory);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            background: var(--charcoal);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 2.5rem;
+        }
+
+        .contact-form-wrapper h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form-wrapper > p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.03em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: var(--obsidian);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.9rem 1rem;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--charcoal);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-submit {
+            margin-top: 1.5rem;
+        }
+
+        .form-submit button {
+            width: 100%;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 5% 2rem;
+            background: var(--charcoal);
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .footer-section h4 {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-8px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-4px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .target-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            nav {
+                padding: 1.25rem 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 5rem 5%;
+            }
+
+            .approach-grid,
+            .ethics-grid,
+            .digital-assets-content,
+            .cta-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+
+            .process-steps::before {
+                display: none;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .trust-content {
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .services-grid,
+            .target-grid,
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .trust-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Structura <span>Advisory</span></a>
+        <ul class="nav-links">
+            <li><a href="#approach">Approche</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#team">Équipe</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">Conseil en structuration patrimoniale</div>
+        <h1>Structurez votre patrimoine avec <span class="highlight">méthode et clarté</span></h1>
+        <p class="hero-subtitle">Société de management, EIP, droits d'auteur, stratégie immobilière — nous définissons l'architecture optimale de votre patrimoine. Vous gardez ensuite le contrôle avec vos partenaires de confiance.</p>
+        <div class="hero-cta">
+            <a href="#contact" class="btn-primary">Solliciter un diagnostic</a>
+            <a href="#approach" class="btn-secondary">Découvrir notre approche</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Découvrir</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="trust-content">
+            <div class="trust-item">
+                <div class="trust-number">2017</div>
+                <div class="trust-label">Présence dans l'écosystème</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-number">5</div>
+                <div class="trust-label">Domaines d'expertise</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-number">100%</div>
+                <div class="trust-label">Conseil indépendant</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="problem-content">
+            <div class="section-label">Le constat</div>
+            <h2>Un besoin de coordination souvent non adressé</h2>
+            <p class="problem-text">Les professionnels du chiffre et du droit excellent dans leurs domaines respectifs. Le comptable assure la tenue des comptes et les obligations déclaratives. L'avocat fiscaliste intervient sur des problématiques juridiques complexes. Le notaire sécurise les actes et authentifie les transactions. Chacun apporte une expertise pointue — mais leurs honoraires, souvent élevés, se justifient pleinement pour des missions précises et ponctuelles, pas pour une réflexion stratégique globale.</p>
+            <p class="problem-text">Cependant, ces experts interviennent généralement sur des missions spécifiques. La question stratégique en amont — <em>quelle structure globale adopter ?</em> — reste souvent sans réponse claire.</p>
+            <div class="problem-highlight">
+                <p>"Nous définissons l'architecture de votre patrimoine. L'exécution est ensuite confiée à vos partenaires habituels — ou à notre réseau de spécialistes."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach Section -->
+    <section class="approach" id="approach">
+        <div class="approach-grid">
+            <div class="approach-content">
+                <div class="section-label">Notre positionnement</div>
+                <h2>L'architecte de votre patrimoine</h2>
+                <p>Nous ne sommes ni avocats fiscalistes, ni experts-comptables. Nous sommes des <strong>juristes entrepreneurs</strong> disposant d'une expertise à l'intersection du droit fiscal, de la finance et de la gestion de patrimoine.</p>
+                <p>Cette position nous permet d'avoir une vision transversale de votre situation et de coordonner efficacement les différentes expertises nécessaires à sa structuration.</p>
+                <p>Notre valeur ajoutée réside dans notre capacité à traduire des situations complexes en plans d'action concrets, que n'importe quel professionnel qualifié peut ensuite exécuter.</p>
+            </div>
+            <div class="approach-comparison">
+                <div class="comparison-card classic">
+                    <h4>Approche classique</h4>
+                    <ul>
+                        <li>Comptable : tenue des comptes, obligations déclaratives</li>
+                        <li>Fiscaliste : conseil juridique sur demande spécifique</li>
+                        <li>Notaire : rédaction et authentification des actes</li>
+                        <li>Coordination des intervenants : à votre initiative</li>
+                    </ul>
+                </div>
+                <div class="comparison-card structura">
+                    <h4>Avec Structura Advisory</h4>
+                    <ul>
+                        <li>Analyse transversale de votre situation</li>
+                        <li>Élaboration d'une stratégie documentée</li>
+                        <li>Plan d'action structuré et priorisé</li>
+                        <li>Interface avec vos partenaires pour l'exécution</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-header">
+            <div class="section-label">Domaines d'intervention</div>
+            <h2>Une expertise ciblée sur les leviers de structuration patrimoniale</h2>
+            <p>Nous intervenons sur les problématiques les plus fréquentes rencontrées par les professionnels et entrepreneurs belges.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h3>Société de Management</h3>
+                <p>Analyse d'opportunité du passage en société et optimisation de la structure de rémunération.</p>
+                <ul class="service-list">
+                    <li>Étude comparative : personne physique vs société</li>
+                    <li>Arbitrage rémunération / dividendes</li>
+                    <li>Politique de frais professionnels</li>
+                    <li>Régime VVPR-bis et dividendes</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <h3>Régimes d'optimisation</h3>
+                <p>Identification et mise en œuvre des dispositifs fiscaux avantageux adaptés à votre situation.</p>
+                <ul class="service-list">
+                    <li>EIP — Engagement Individuel de Pension</li>
+                    <li>Droits d'auteur (consultants, créatifs)</li>
+                    <li>PLCI — Pension Libre Complémentaire</li>
+                    <li>Optimisation des tantièmes</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <h3>Stratégie immobilière</h3>
+                <p>Conseil sur la structuration optimale de vos investissements immobiliers et leur financement.</p>
+                <ul class="service-list">
+                    <li>Acquisition en nom propre vs en société</li>
+                    <li>Stratégies de financement (bullet, lombard)</li>
+                    <li>Optimisation fiscale des revenus locatifs</li>
+                    <li>Planification des plus-values</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+                </div>
+                <h3>AML & Rapatriement</h3>
+                <p>Constitution de dossiers de conformité pour le rapatriement de fonds vers les établissements bancaires belges.</p>
+                <ul class="service-list">
+                    <li>Documentation AML complète</li>
+                    <li>Traçabilité et origine des fonds</li>
+                    <li>Accompagnement bancaire</li>
+                    <li>Conformité réglementaire</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3>Outils numériques</h3>
+                <p>Recommandation et accompagnement dans la mise en place d'outils pour piloter votre activité.</p>
+                <ul class="service-list">
+                    <li>Tableaux de bord et suivi des KPI</li>
+                    <li>Outils de facturation et gestion administrative</li>
+                    <li>Solutions de suivi patrimonial consolidé</li>
+                    <li>Automatisation des tâches récurrentes</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="process-header">
+            <div class="section-label">Notre méthodologie</div>
+            <h2>Un processus structuré et efficace</h2>
+            <p>Un entretien initial suivi de deux à trois séances de travail pour définir et formaliser votre stratégie patrimoniale.</p>
+        </div>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4>Entretien découverte</h4>
+                <p>Première prise de contact pour comprendre votre situation et évaluer la pertinence d'un accompagnement.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4>Diagnostic approfondi</h4>
+                <p>Analyse détaillée de votre situation patrimoniale, fiscale et professionnelle.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4>Recommandations</h4>
+                <p>Présentation d'une stratégie documentée avec analyse comparative des options.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4>Mise en œuvre</h4>
+                <p>Coordination avec vos partenaires ou mise en relation avec notre réseau.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ethics Section -->
+    <section class="ethics">
+        <div class="ethics-grid">
+            <div class="ethics-content">
+                <div class="section-label">Nos engagements</div>
+                <h2>Transparence et intégrité au cœur de notre pratique</h2>
+                <p>L'optimisation fiscale consiste à utiliser intelligemment les dispositifs légaux mis en place par le législateur. Cette démarche est parfaitement légitime et encadrée par la loi.</p>
+                <p>En revanche, nous refusons systématiquement les montages agressifs, les zones grises et toute stratégie qui ne pourrait être défendue sereinement devant l'administration fiscale.</p>
+                <p>Cette rigueur est la garantie de notre crédibilité auprès des institutions financières et des professionnels avec lesquels nous collaborons.</p>
+            </div>
+            <div class="ethics-principles">
+                <div class="ethics-card">
+                    <h4>Conformité absolue</h4>
+                    <p>Nous déclinons tout dossier présentant des indices de fraude fiscale ou de montages illicites.</p>
+                </div>
+                <div class="ethics-card">
+                    <h4>Transparence totale</h4>
+                    <p>Nous présentons les avantages comme les contraintes de chaque stratégie. Pas de promesses irréalistes.</p>
+                </div>
+                <div class="ethics-card">
+                    <h4>Orientation vers les spécialistes</h4>
+                    <p>Lorsque votre situation requiert une expertise pointue, nous vous orientons vers l'interlocuteur qualifié.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="team-header">
+            <div class="section-label">L'équipe</div>
+            <h2>Une expertise pluridisciplinaire au service de votre patrimoine</h2>
+            <p>Des juristes entrepreneurs qui combinent expertise théorique et expérience pratique de la structuration patrimoniale.</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">DA</div>
+                <h3>Diego Arnoults</h3>
+                <div class="team-role">Fondateur</div>
+                <p>Juriste de formation avec une double spécialisation en droit fiscal et en finance. Entrepreneur depuis 2017, il a acquis une connaissance pratique des enjeux de structuration patrimoniale.</p>
+                <ul class="team-credentials">
+                    <li>Maîtrise en Droit fiscal — UCLouvain</li>
+                    <li>Spécialisation en Finance</li>
+                    <li>Entrepreneur depuis 2017</li>
+                </ul>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h3>Réseau de partenaires</h3>
+                <div class="team-role">Spécialistes pour l'exécution</div>
+                <p>Nous collaborons avec un réseau de professionnels qualifiés pour la mise en œuvre de vos stratégies. Vous conservez la liberté de travailler avec vos propres partenaires.</p>
+                <ul class="team-credentials">
+                    <li>Avocats fiscalistes</li>
+                    <li>Notaires spécialisés</li>
+                    <li>Experts-comptables</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Section -->
+    <section class="target">
+        <div class="target-header">
+            <div class="section-label">Nos clients</div>
+            <h2>Professionnels et entrepreneurs à la recherche de clarté</h2>
+            <p>Nous accompagnons des profils qui disposent de revenus significatifs et souhaitent structurer leur patrimoine de manière optimale.</p>
+        </div>
+        <div class="target-grid">
+            <div class="target-card">
+                <div class="target-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <h3>Professions médicales</h3>
+                <p>Médecins, dentistes, spécialistes</p>
+            </div>
+            <div class="target-card">
+                <div class="target-icon">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3>Consultants</h3>
+                <p>IT, finance, stratégie, management</p>
+            </div>
+            <div class="target-card">
+                <div class="target-icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+                </div>
+                <h3>Dirigeants</h3>
+                <p>Entrepreneurs et dirigeants de PME</p>
+            </div>
+            <div class="target-card">
+                <div class="target-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <h3>Professions libérales</h3>
+                <p>Avocats, architectes, notaires</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Assets Section -->
+    <section class="digital-assets">
+        <div class="digital-assets-content">
+            <div class="digital-assets-text">
+                <div class="section-label">Actifs numériques</div>
+                <h2>Une expertise dédiée pour vos cryptomonnaies</h2>
+                <p>La conformité des actifs numériques requiert une expertise spécifique : traçabilité on-chain, documentation AML pour les établissements bancaires, qualification fiscale des plus-values, transmission successorale.</p>
+                <p>Notre équipe spécialisée accompagne les détenteurs de cryptomonnaies dans leur mise en conformité avec le cadre réglementaire belge.</p>
+            </div>
+            <div class="digital-assets-card">
+                <div class="chainbridge-logo">Chain<span>Bridge</span></div>
+                <p>Cabinet dédié à la conformité des actifs numériques en Belgique</p>
+                <ul class="digital-assets-list">
+                    <li>Rapatriement bancaire & dossiers AML</li>
+                    <li>Conformité fiscale crypto</li>
+                    <li>Transmission patrimoniale</li>
+                    <li>Due diligence</li>
+                </ul>
+                <a href="https://chainbridge.be" target="_blank" class="chainbridge-link">
+                    Découvrir ChainBridge.be
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="cta-content">
+            <div class="cta-info">
+                <div class="section-label">Nous contacter</div>
+                <h2>Solliciter un entretien</h2>
+                <p>Décrivez-nous votre situation. Notre équipe vous recontactera sous 24 heures ouvrées pour un premier échange confidentiel et sans engagement.</p>
+                <ul class="cta-benefits">
+                    <li>Entretien découverte sans engagement</li>
+                    <li>Évaluation de la pertinence d'un accompagnement</li>
+                    <li>Confidentialité garantie</li>
+                    <li>Réponse sous 24 heures</li>
+                </ul>
+            </div>
+            <div class="contact-form-wrapper">
+                <h3>Formulaire de contact</h3>
+                <p>Complétez ce formulaire et nous vous recontacterons rapidement.</p>
+                <form class="contact-form" action="https://formspree.io/f/mgooyyov" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" id="name" name="name" required placeholder="Votre nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Adresse email</label>
+                            <input type="email" id="email" name="email" required placeholder="votre@email.be">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+32 xxx xx xx xx">
+                        </div>
+                        <div class="form-group">
+                            <label for="profession">Profession</label>
+                            <select id="profession" name="profession">
+                                <option value="">Sélectionner...</option>
+                                <option value="medecin">Profession médicale</option>
+                                <option value="consultant">Consultant / Indépendant</option>
+                                <option value="entrepreneur">Entrepreneur / Dirigeant</option>
+                                <option value="liberal">Profession libérale</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="revenue">Revenus annuels bruts</label>
+                            <select id="revenue" name="revenue">
+                                <option value="">Sélectionner...</option>
+                                <option value="50-100k">50 000€ - 100 000€</option>
+                                <option value="100-200k">100 000€ - 200 000€</option>
+                                <option value="200-500k">200 000€ - 500 000€</option>
+                                <option value=">500k">Plus de 500 000€</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Domaine d'intérêt</label>
+                            <select id="service" name="service">
+                                <option value="">Sélectionner...</option>
+                                <option value="societe">Société de management</option>
+                                <option value="optimisation">Régimes d'optimisation (EIP, droits d'auteur)</option>
+                                <option value="immo">Stratégie immobilière</option>
+                                <option value="aml">AML & Rapatriement bancaire</option>
+                                <option value="outils">Outils numériques</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="message">Description de votre situation</label>
+                        <textarea id="message" name="message" placeholder="Décrivez brièvement votre situation et l'objet de votre demande..."></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="btn-primary">Envoyer ma demande</button>
+                    </div>
+                    <p class="form-note">Vos données sont protégées et traitées en toute confidentialité.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">Structura <span>Advisory</span></a>
+                <p>Conseil indépendant en structuration patrimoniale. Nous vous aidons à optimiser vos revenus et votre patrimoine en toute légalité.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Société de management</a></li>
+                    <li><a href="#services">Régimes d'optimisation</a></li>
+                    <li><a href="#services">Stratégie immobilière</a></li>
+                    <li><a href="#services">AML & Rapatriement</a></li>
+                    <li><a href="#services">Outils numériques</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="#approach">Notre approche</a></li>
+                    <li><a href="#team">L'équipe</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:contact@structura-advisory.be">contact@structura-advisory.be</a></li>
+                    <li>Bruxelles, Belgique</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Structura Advisory. Tous droits réservés.</p>
+            <div class="footer-legal">
+                <a href="#">Mentions légales</a>
+                <a href="#">Politique de confidentialité</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
